@@ -1,0 +1,619 @@
+annotations: []
+smart_annotations: []
+nodes:
+  - boot_disk_size: null
+    configuration:
+      - name: iosxr_config.txt
+        content: |2-
+
+          Thu Jul 31 13:53:32.403 UTC
+          !! Building configuration...
+          !! IOS XR Configuration 24.3.1
+          !! Last configuration change at Thu Jul 31 13:53:32 2025 by cisco
+          !
+          hostname PE1
+          logging console disable
+          username cisco
+           group root-lr
+           group cisco-support
+           secret 10 $6$Y8GNY/WI4NZF4Y/.$zLXp1Nw0F5aIJROdoX4m1jrNoOR/s7mAgCugxqcd.cnbCUz0WzG0.J2GsMrPXghwHDO/k7rca4VhBiatkqRQH0
+          !
+          line console
+           exec-timeout 0 0
+           absolute-timeout 0
+           session-timeout 0
+          !
+          line default
+           exec-timeout 0 0
+           absolute-timeout 0
+           session-timeout 0
+          !
+          interface Bundle-Ether1
+           lacp system mac 1212.1212.1212
+           l2transport
+           !
+          !
+          interface Loopback0
+           ipv4 address 1.1.1.1 255.255.255.255
+          !
+          interface HundredGigE0/0/0/0
+           ipv4 address 100.101.103.101 255.255.255.0
+          !
+          interface HundredGigE0/0/0/1
+           bundle id 1 mode on
+          !
+          interface HundredGigE0/0/0/2
+           ipv4 address 100.101.102.101 255.255.255.0
+          !
+          router ospf 100
+           router-id 1.1.1.1
+           segment-routing mpls
+           segment-routing sr-prefer
+           area 0
+            interface Loopback0
+             passive enable
+             prefix-sid index 101
+            !
+            interface HundredGigE0/0/0/0
+            !
+            interface HundredGigE0/0/0/2
+            !
+           !
+          !
+          router bgp 100
+           bgp router-id 1.1.1.1
+           address-family l2vpn evpn
+           !
+           address-family link-state link-state
+           !
+           neighbor 2.2.2.2
+            remote-as 100
+            update-source Loopback0
+            address-family l2vpn evpn
+            !
+           !
+           neighbor 3.3.3.3
+            remote-as 100
+            update-source Loopback0
+            address-family l2vpn evpn
+            !
+           !
+          !
+          evpn
+           evi 100
+            advertise-mac
+            !
+           !
+           interface Bundle-Ether1
+            ethernet-segment
+             identifier type 0 11.11.11.11.11.11.11.11.11
+            !
+           !
+          !
+          l2vpn
+           bridge group 100
+            bridge-domain 100
+             interface Bundle-Ether1
+             !
+             evi 100
+             !
+            !
+           !
+          !
+          segment-routing
+           global-block 16000 18000
+          !
+          end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n0
+    image_definition: null
+    label: 8102-PE1
+    node_definition: cisco8102
+    parameters: {}
+    ram: null
+    tags: []
+    x: -400
+    y: -160
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: MgmtEth0/RP0/CPU0/0
+        mac_address: null
+        type: physical
+        slot: 0
+      - id: i2
+        label: Hu0/0/0/0
+        mac_address: null
+        type: physical
+        slot: 1
+      - id: i3
+        label: Hu0/0/0/1
+        mac_address: null
+        type: physical
+        slot: 2
+      - id: i4
+        label: Hu0/0/0/2
+        mac_address: null
+        type: physical
+        slot: 3
+  - boot_disk_size: null
+    configuration:
+      - name: iosxr_config.txt
+        content: |2-
+
+          Thu Jul 31 13:54:28.998 UTC
+          !! Building configuration...
+          !! IOS XR Configuration 24.3.1
+          !! Last configuration change at Thu Jul 31 13:54:28 2025 by cisco
+          !
+          hostname PE3
+          logging console disable
+          username cisco
+           group root-lr
+           group cisco-support
+           secret 10 $6$ZuNc71S4OmVaA71.$hhX7bmkXRiNLZvFlrDMWBVzlJH48upo6t20PmhW3neadFRpwxAoXouayAZRbL4HdCOXOrVeS5M5c5zjgbRv.i0
+          !
+          line console
+           exec-timeout 0 0
+           absolute-timeout 0
+           session-timeout 0
+          !
+          line default
+           exec-timeout 0 0
+           absolute-timeout 0
+           session-timeout 0
+          !
+          interface Bundle-Ether1
+           lacp system mac 3333.3333.3333
+           l2transport
+           !
+          !
+          interface Loopback0
+           ipv4 address 3.3.3.3 255.255.255.255
+          !
+          interface HundredGigE0/0/0/0
+           ipv4 address 100.101.103.103 255.255.255.0
+          !
+          interface HundredGigE0/0/0/1
+           bundle id 1 mode on
+          !
+          interface HundredGigE0/0/0/2
+           ipv4 address 100.102.103.103 255.255.255.0
+          !
+          router ospf 100
+           router-id 3.3.3.3
+           segment-routing mpls
+           segment-routing sr-prefer
+           area 0
+            interface Loopback0
+             passive enable
+             prefix-sid index 103
+            !
+            interface HundredGigE0/0/0/0
+            !
+            interface HundredGigE0/0/0/2
+            !
+           !
+          !
+          router bgp 100
+           bgp router-id 3.3.3.3
+           address-family l2vpn evpn
+           !
+           neighbor 1.1.1.1
+            remote-as 100
+            update-source Loopback0
+            address-family l2vpn evpn
+            !
+           !
+           neighbor 2.2.2.2
+            remote-as 100
+            update-source Loopback0
+            address-family l2vpn evpn
+            !
+           !
+          !
+          evpn
+           evi 100
+            advertise-mac
+            !
+           !
+           interface Bundle-Ether1
+            ethernet-segment
+             identifier type 0 22.22.22.22.22.22.22.22.22
+            !
+           !
+          !
+          l2vpn
+           bridge group 100
+            bridge-domain 100
+             interface Bundle-Ether1
+             !
+             evi 100
+             !
+            !
+           !
+          !
+          mpls oam
+          !
+          segment-routing
+           global-block 16000 18000
+          !
+          end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n1
+    image_definition: null
+    label: 8102-PE3
+    node_definition: cisco8102
+    parameters: {}
+    ram: null
+    tags: []
+    x: -160
+    y: -80
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: MgmtEth0/RP0/CPU0/0
+        mac_address: null
+        type: physical
+        slot: 0
+      - id: i2
+        label: Hu0/0/0/0
+        mac_address: null
+        type: physical
+        slot: 1
+      - id: i3
+        label: Hu0/0/0/1
+        mac_address: null
+        type: physical
+        slot: 2
+      - id: i4
+        label: Hu0/0/0/2
+        mac_address: null
+        type: physical
+        slot: 3
+  - boot_disk_size: null
+    configuration:
+      - name: iosxr_config.txt
+        content: |2-
+
+          Thu Jul 31 13:53:17.112 UTC
+          !! Building configuration...
+          !! IOS XR Configuration 24.3.1
+          !! Last configuration change at Thu Jul 31 13:53:16 2025 by cisco
+          !
+          hostname CE1
+          logging console disable
+          username cisco
+           group root-lr
+           group cisco-support
+           secret 10 $6$xxlz2TwD/zH2....$7LJnBIZlNusUBlk2DxIiDKFl3AkaUEup6CLdEFZM1ZIV7hmRrWKAj7HMyGxbYtGVzwutlywrxgoG4F/43QQ.K/
+          !
+          line console
+           exec-timeout 0 0
+           absolute-timeout 0
+           session-timeout 0
+          !
+          line default
+           exec-timeout 0 0
+           absolute-timeout 0
+           session-timeout 0
+          !
+          interface Bundle-Ether1
+           ipv4 address 10.1.1.2 255.255.255.0
+          !
+          interface HundredGigE0/0/0/0
+           bundle id 1 mode on
+          !
+          interface HundredGigE0/0/0/1
+           bundle id 1 mode on
+          !
+          end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n2
+    image_definition: null
+    label: 8102-CE1
+    node_definition: cisco8102
+    parameters: {}
+    ram: null
+    tags: []
+    x: -640
+    y: -80
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: MgmtEth0/RP0/CPU0/0
+        mac_address: null
+        type: physical
+        slot: 0
+      - id: i2
+        label: Hu0/0/0/0
+        mac_address: null
+        type: physical
+        slot: 1
+      - id: i3
+        label: Hu0/0/0/1
+        mac_address: null
+        type: physical
+        slot: 2
+      - id: i4
+        label: Hu0/0/0/2
+        mac_address: null
+        type: physical
+        slot: 3
+  - boot_disk_size: null
+    configuration:
+      - name: iosxr_config.txt
+        content: |2-
+
+          Thu Jul 31 13:54:44.739 UTC
+          !! Building configuration...
+          !! IOS XR Configuration 24.3.1
+          !! Last configuration change at Thu Jul 31 13:54:44 2025 by cisco
+          !
+          hostname CE2
+          logging console disable
+          username cisco
+           group root-lr
+           group cisco-support
+           secret 10 $6$KHsKe/2iZOPd4e/.$vM8c1ZyTVqfCkT4eD7JcOUy5EFowGPhsbwB2x55jtBKBnXLTlyJB2txwR.Vmovw1H9pcNAILBMn.Hk/KtFcPP.
+          !
+          line console
+           exec-timeout 0 0
+           absolute-timeout 0
+           session-timeout 0
+          !
+          line default
+           exec-timeout 0 0
+           absolute-timeout 0
+           session-timeout 0
+          !
+          interface Bundle-Ether1
+           ipv4 address 10.1.1.3 255.255.255.0
+          !
+          interface HundredGigE0/0/0/0
+           bundle id 1 mode on
+          !
+          end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n3
+    image_definition: null
+    label: 8102-CE2
+    node_definition: cisco8102
+    parameters: {}
+    ram: null
+    tags: []
+    x: 40
+    y: -80
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: MgmtEth0/RP0/CPU0/0
+        mac_address: null
+        type: physical
+        slot: 0
+      - id: i2
+        label: Hu0/0/0/0
+        mac_address: null
+        type: physical
+        slot: 1
+      - id: i3
+        label: Hu0/0/0/1
+        mac_address: null
+        type: physical
+        slot: 2
+      - id: i4
+        label: Hu0/0/0/2
+        mac_address: null
+        type: physical
+        slot: 3
+  - boot_disk_size: null
+    configuration:
+      - name: iosxr_config.txt
+        content: |2-
+
+          Thu Jul 31 13:54:00.718 UTC
+          !! Building configuration...
+          !! IOS XR Configuration 24.3.1
+          !! Last configuration change at Thu Jul 31 13:54:00 2025 by cisco
+          !
+          hostname PE2
+          logging console disable
+          username cisco
+           group root-lr
+           group cisco-support
+           secret 10 $6$dVt9b/MymNjQ4b/.$esxv9sxjU82Mf6c7chjFJSn91rFr9zvfDtkqK2KKuWMz87ap3nEd65bk5jW2s.RnGHUx.JsnVKKyErm1ad4hX1
+          !
+          line console
+           exec-timeout 0 0
+           absolute-timeout 0
+           session-timeout 0
+          !
+          line default
+           exec-timeout 0 0
+           absolute-timeout 0
+           session-timeout 0
+          !
+          interface Bundle-Ether1
+           lacp system mac 1212.1212.1212
+           l2transport
+           !
+          !
+          interface Loopback0
+           ipv4 address 2.2.2.2 255.255.255.255
+          !
+          interface HundredGigE0/0/0/0
+           ipv4 address 100.102.103.102 255.255.255.0
+          !
+          interface HundredGigE0/0/0/1
+           bundle id 1 mode on
+          !
+          interface HundredGigE0/0/0/2
+           ipv4 address 100.101.102.102 255.255.255.0
+          !
+          router ospf 100
+           router-id 2.2.2.2
+           segment-routing mpls
+           segment-routing sr-prefer
+           area 0
+            interface Loopback0
+             passive enable
+             prefix-sid index 102
+            !
+            interface HundredGigE0/0/0/0
+            !
+            interface HundredGigE0/0/0/2
+            !
+           !
+          !
+          router bgp 100
+           bgp router-id 2.2.2.2
+           address-family l2vpn evpn
+           !
+           neighbor 1.1.1.1
+            remote-as 100
+            update-source Loopback0
+            address-family l2vpn evpn
+            !
+           !
+           neighbor 3.3.3.3
+            remote-as 100
+            update-source Loopback0
+            address-family l2vpn evpn
+            !
+           !
+          !
+          evpn
+           evi 100
+            advertise-mac
+            !
+           !
+           interface Bundle-Ether1
+            ethernet-segment
+             identifier type 0 11.11.11.11.11.11.11.11.11
+            !
+           !
+          !
+          l2vpn
+           bridge group 100
+            bridge-domain 100
+             interface Bundle-Ether1
+             !
+             evi 100
+             !
+            !
+           !
+          !
+          segment-routing
+           global-block 16000 18000
+          !
+          end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n4
+    image_definition: null
+    label: 8102-PE2
+    node_definition: cisco8102
+    parameters: {}
+    ram: null
+    tags: []
+    x: -400
+    y: 0
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: MgmtEth0/RP0/CPU0/0
+        mac_address: null
+        type: physical
+        slot: 0
+      - id: i2
+        label: Hu0/0/0/0
+        mac_address: null
+        type: physical
+        slot: 1
+      - id: i3
+        label: Hu0/0/0/1
+        mac_address: null
+        type: physical
+        slot: 2
+      - id: i4
+        label: Hu0/0/0/2
+        mac_address: null
+        type: physical
+        slot: 3
+links:
+  - id: l0
+    n1: n2
+    n2: n0
+    i1: i2
+    i2: i3
+    conditioning: {}
+    label: 8102-2-Hu0/0/0/0<->8102-0-Hu0/0/0/1
+  - id: l1
+    n1: n2
+    n2: n4
+    i1: i3
+    i2: i3
+    conditioning: {}
+    label: 8102-2-Hu0/0/0/1<->8102-4-Hu0/0/0/1
+  - id: l2
+    n1: n0
+    n2: n1
+    i1: i2
+    i2: i2
+    conditioning: {}
+    label: 8102-0-Hu0/0/0/0<->8102-1-Hu0/0/0/0
+  - id: l3
+    n1: n0
+    n2: n4
+    i1: i4
+    i2: i4
+    conditioning: {}
+    label: 8102-0-Hu0/0/0/2<->8102-4-Hu0/0/0/2
+  - id: l4
+    n1: n1
+    n2: n3
+    i1: i3
+    i2: i2
+    conditioning: {}
+    label: 8102-1-Hu0/0/0/1<->8102-3-Hu0/0/0/0
+  - id: l5
+    n1: n4
+    n2: n1
+    i1: i2
+    i2: i4
+    conditioning: {}
+    label: 8102-PE2-Hu0/0/0/0<->8102-PE3-Hu0/0/0/2
+lab:
+  description: ''
+  notes: ''
+  title: Lab at Thu 11:44 AM
+  version: 0.3.0

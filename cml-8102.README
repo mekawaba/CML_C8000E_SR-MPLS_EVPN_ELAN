@@ -1,0 +1,41 @@
+Copyright (C) Cisco Systems 2024
+All Rights Reserved
+
+This software is Beta/EFT and comes with no support.
+Additionally this software is for personal use and cannot be used for any commercial purpose. 
+Feedback is welcome at 8000e-support@cisco.com.
+
+Steps to add 8102 to CML 2.6.0+
+
+Introduction:
+First install and test your CML environment using the online documentation.
+The 8102 has been qualified with both 2.6.x and 2.7.x editions.
+It is best to be running CML on a bare metal server. 
+If nested VM is required, then hardware assist virtualization must be enabled.
+Make sure server has sufficient number of cores & memory plus some spare. (8core + 12G per instance of 8102)
+This setting is a starting point and user can modify node setting in CML to increase memory upto 32G per instance.
+
+Instalation:
+Login into cml-controller portal (port 9090)
+Access terminal and login.
+
+Become root:
+
+ sudo bash
+ cd /var/tmp
+
+Copy 8102 package into /var/tmp using scp or wget:
+
+ scp|wget cml-8102-24.3.1.tar . 
+
+Upack tar file
+
+  tar -xvf cml-8102-24.3.1.tar
+
+Change directory into cml-8102-24.3.1 installation folder and run the installation script:
+
+  ./install-8102.24.3.1.sh 
+
+Restart CML services from cml mainteance section restart CML services. 
+This will force a relogin into CML.
+Login into CML and verify 8102 24.3.1 node type is available.
